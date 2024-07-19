@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
     {
@@ -8,19 +8,25 @@ const userSchema = new mongoose.Schema(
             minLength: 3,
             maxLength: 200,
             unique: true,
-
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            match: [/\S+@\S+\.\S+/, 'is invalid'],
+            maxLength: 200,
         },
         password: {
             type: String,
             required: true,
             minLength: 3,
-            maxLength: 1024
+            maxLength: 1024,
         },
-    }, {
-    timestamps: true,
-}
-
+    },
+    {
+        timestamps: true,
+    }
 );
 
-const userModel = mongoose.model("User", userSchema)
-module.exports = userModel
+const userModel = mongoose.model("User", userSchema);
+module.exports = userModel;
